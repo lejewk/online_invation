@@ -15,18 +15,26 @@
   window.onload = function() {
     init(); // 캔버스 초기화
 
-    background()
-    .then(invation) // 배경
-    .then(friend_ground) // 친구 땅
+    background() // 배경
+    .then(invation) // 초대장
+    .then(invationStatus)
+    .then(friendGround) // 친구 땅
     .then(friend) // 친구
-    .then(choice_box); // 초이스 박스
+    .then(friendStatus) // 친구
+    .then(messageBox) // 메시지 박스
+    .then(whatToDoText) // 무얼할까 문구 출력
+    .then(choiceBox) // 선택박스
+    .then(choiceText); // 선택 문구
   };
 
   function init() {
     window.canvas = document.getElementById("my_canvas");
 
-    window.canvas.width  = window.innerWidth;
-    window.canvas.height = window.innerHeight;
+    // 클릭 이벤트 발행
+    canvas.addEventListener('click', action, false);
+
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     window.ctx = canvas.getContext('2d');
   }
@@ -37,7 +45,7 @@
       let img = new Image();
       img.src = './img/background.png';
       img.onload = function() {
-        window.ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
+        ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
         resolve();
       }
     });
@@ -49,19 +57,31 @@
       let img = new Image();
       img.src = './img/unit_invation.png';
       img.onload = function() {
-        window.ctx.drawImage(img, window.innerWidth - img.width - 10, 90);
+        ctx.drawImage(img, window.innerWidth - img.width - 10, 90);
+        resolve();
+      }
+    });
+  }
+
+  // 초대장 상태
+  function invationStatus() {
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.src = './img/unit_invation_status.png';
+      img.onload = function() {
+        ctx.drawImage(img, 10, 50);
         resolve();
       }
     });
   }
 
   // 친구 땅
-  function friend_ground() {
+  function friendGround() {
     return new Promise((resolve, reject) => {
       let img = new Image();
       img.src = './img/unit_friend_ground.png';
       img.onload = function() {
-        window.ctx.drawImage(img, 0, 250);
+        ctx.drawImage(img, 0, 250);
         resolve();
       }
     });
@@ -73,14 +93,26 @@
       let img = new Image();
       img.src = './img/unit_friend.png';
       img.onload = function() {
-        window.ctx.drawImage(img, 40, 176);
+        ctx.drawImage(img, 40, 176);
+        resolve();
+      }
+    });
+  }
+
+  // 친구 상태
+  function friendStatus() {
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.src = './img/unit_friend_status.png';
+      img.onload = function() {
+        ctx.drawImage(img, window.innerWidth - 170, 190);
         resolve();
       }
     });
   }
 
   // 선택박스
-  function choice_box() {
+  function messageBox() {
     return new Promise((resolve, reject) => {
       let startHeight = 267;
       let sideWidth = 19;
@@ -91,8 +123,7 @@
           let img1 = new Image();
           img1.src = './img/nine_1.png';
           img1.onload = function() {
-            window.ctx.drawImage(img1, 0, startHeight);
-            console.log('nine_1 done');
+            ctx.drawImage(img1, 0, startHeight);
             resolve();
           }
         });
@@ -103,8 +134,7 @@
           let img3 = new Image();
           img3.src = './img/nine_3.png';
           img3.onload = function() {
-            window.ctx.drawImage(img3, window.canvas.width - img3.width, startHeight);
-            console.log('nine_3 done');
+            ctx.drawImage(img3, canvas.width - img3.width, startHeight);
             resolve();
           }
         });
@@ -115,8 +145,7 @@
           let img7 = new Image();
           img7.src = './img/nine_7.png';
           img7.onload = function() {
-            window.ctx.drawImage(img7, 0, window.innerHeight - 13);
-            console.log('nine_7 done');
+            ctx.drawImage(img7, 0, window.innerHeight - 13);
             resolve();
           }
         });
@@ -127,8 +156,7 @@
           let img9 = new Image();
           img9.src = './img/nine_9.png';
           img9.onload = function() {
-            window.ctx.drawImage(img9, window.canvas.width - img9.width, window.innerHeight - 13);
-            console.log('nine_9 done');
+            ctx.drawImage(img9, canvas.width - img9.width, window.innerHeight - 13);
             resolve();
           }
         });
@@ -142,9 +170,8 @@
             let startX = sideWidth;
             let endX = window.innerWidth - sideWidth;
             for (i = startX; i < endX; i++) {
-              window.ctx.drawImage(img2, i, startHeight);
+              ctx.drawImage(img2, i, startHeight);
             }
-            console.log('nine_2 done');
             resolve();
           }
         });
@@ -158,9 +185,8 @@
             let startX = sideWidth;
             let endX = window.innerWidth - sideWidth;
             for (i = startX; i < endX; i++) {
-              window.ctx.drawImage(img8, i, window.innerHeight - 13);
+              ctx.drawImage(img8, i, window.innerHeight - 13);
             }
-            console.log('nine_8 done');
             resolve();
           }
         });
@@ -174,9 +200,8 @@
             let startY = startHeight + sideHeight;
             let endY = window.innerHeight - sideHeight;
             for (i = startY; i < endY; i++) {
-              window.ctx.drawImage(img4, 0, i);
+              ctx.drawImage(img4, 0, i);
             }
-            console.log('nine_4 done');
             resolve();
           }
         });
@@ -190,25 +215,23 @@
             let startY = startHeight + sideHeight;
             let endY = window.innerHeight - sideHeight;
             for (i = startY; i < endY; i++) {
-              window.ctx.drawImage(img6, window.canvas.width - sideWidth, i);
+              ctx.drawImage(img6, canvas.width - sideWidth, i);
             }
-            console.log('nine_6 done');
             resolve();
           }
         });
       };
 
       let rect = () => {
-        window.ctx.rect(
+        ctx.fillStyle = '#285068';
+        ctx.fillRect(
           sideWidth,
           startHeight + sideHeight,
           window.innerWidth - (sideWidth * 2),
           window.innerHeight - startHeight - (sideHeight * 2)
         );
-
-        window.ctx.fillStyle = '#285068';
-        window.ctx.fill();
-        console.log('rect done');
+        
+        return Promise.resolve();
       };
 
       nine_1()
@@ -219,12 +242,253 @@
       .then(nine_7)
       .then(nine_8)
       .then(nine_9)
+      .then(rect)
       .then(() => {
-        rect();
         resolve();
       });
     });
   }
+
+  function whatToDoText() {
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowColor = "#685870";
+    ctx.font = "16px 맑은고딕";
+    ctx.fillStyle = 'white';
+    ctx.fillText("하객는(은) 무엇을 할까?", 30, 300);
+
+    return Promise.resolve();
+  }
+
+  function choiceBox() {
+    return new Promise((resolve, reject) => {
+      let startHeight = 310;
+      let sideWidth = 14;
+      let sideHeight = 14;
+
+      let nine_1 = () => {
+        return new Promise((resolve, reject) => {
+          let img1 = new Image();
+          img1.src = './img/cb_1.png';
+          img1.onload = function() {
+            ctx.drawImage(img1, 0, startHeight);
+            resolve();
+          }
+        });
+      };
+
+      let nine_3 = () => {
+        return new Promise((resolve, reject) => {
+          let img3 = new Image();
+          img3.src = './img/cb_3.png';
+          img3.onload = function() {
+            ctx.drawImage(img3, canvas.width - img3.width, startHeight);
+            resolve();
+          }
+        });
+      };
+      
+      let nine_7 = () => {
+        return new Promise((resolve, reject) => {
+          let img7 = new Image();
+          img7.src = './img/cb_7.png';
+          img7.onload = function() {
+            ctx.drawImage(img7, 0, window.innerHeight - 13);
+            resolve();
+          }
+        });
+      };
+      
+      let nine_9 = () => {
+        return new Promise((resolve, reject) => {
+          let img9 = new Image();
+          img9.src = './img/cb_9.png';
+          img9.onload = function() {
+            ctx.drawImage(img9, canvas.width - img9.width, window.innerHeight - 13);
+            resolve();
+          }
+        });
+      };
+
+      let nine_2 = () => {
+        return new Promise((resolve, reject) => {
+          let img2 = new Image();
+          img2.src = './img/cb_2.png';
+          img2.onload = function() {
+            let startX = sideWidth;
+            let endX = window.innerWidth - sideWidth;
+            for (i = startX; i < endX; i++) {
+              ctx.drawImage(img2, i, startHeight);
+            }
+            resolve();
+          }
+        });
+      };
+
+      let nine_8 = () => {
+        return new Promise((resolve, reject) => {
+          let img8 = new Image();
+          img8.src = './img/cb_8.png';
+          img8.onload = function() {
+            let startX = sideWidth;
+            let endX = window.innerWidth - sideWidth;
+            for (i = startX; i < endX; i++) {
+              ctx.drawImage(img8, i, window.innerHeight - 13);
+            }
+            resolve();
+          }
+        });
+      };
+
+      let nine_4 = () => {
+        return new Promise((resolve, reject) => {
+          let img4 = new Image();
+          img4.src = './img/cb_4.png';
+          img4.onload = function() {
+            let startY = startHeight + sideHeight;
+            let endY = window.innerHeight - sideHeight + 1;
+            for (i = startY; i < endY; i++) {
+              ctx.drawImage(img4, 0, i);
+            }
+            resolve();
+          }
+        });
+      };
+
+      let nine_6 = () => {
+        return new Promise((resolve, reject) => {
+          let img6 = new Image();
+          img6.src = './img/cb_6.png';
+          img6.onload = function() {
+            let startY = startHeight + sideHeight;
+            let endY = window.innerHeight - sideHeight + 1;
+            for (i = startY; i < endY; i++) {
+              ctx.drawImage(img6, canvas.width - sideWidth, i);
+            }
+            resolve();
+          }
+        });
+      };
+
+      let rect = () => {
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.fillStyle = '#f8f8f8';
+        ctx.fillRect(
+          sideWidth,
+          startHeight + sideHeight,
+          window.innerWidth - (sideWidth * 2), 
+          window.innerHeight - startHeight - (sideHeight * 2) + 1
+        );
+        
+        return Promise.resolve();
+      };
+
+      nine_1()
+      .then(nine_2)
+      .then(nine_3)
+      .then(nine_4)
+      .then(nine_6)
+      .then(nine_7)
+      .then(nine_8)
+      .then(nine_9)
+      .then(rect)
+      .then(() => {
+        resolve();
+      });
+    });
+  }
+
+  function choiceText() {
+    let startHeight = 350;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowColor = "#d0c8d0";
+    ctx.font = "bold 20px 맑은고딕";
+    ctx.fillStyle = '#484848';
+
+    window.readRect = {
+        x: window.innerWidth/2 - 100,
+        y: startHeight,
+        w: 80,
+        h: 20
+    };
+
+    window.mapRect = {
+        x: window.innerWidth/2,
+        y: startHeight,
+        w: 80,
+        h: 20
+    };
+
+    window.attendRect = {
+        x: window.innerWidth/2 - 100,
+        y: startHeight + 40,
+        w: 80,
+        h: 20
+    };
+
+    window.runRect = {
+        x: window.innerWidth/2,
+        y: startHeight + 40,
+        w: 80,
+        h: 20
+    };
+
+    ctx.fillText("내용읽기", readRect.x, readRect.y);
+    ctx.fillText("약도보기", mapRect.x, mapRect.y);
+    ctx.fillText("참석한다", attendRect.x, attendRect.y);
+    ctx.fillText("도망간다", runRect.x, runRect.y);
+
+    return Promise.resolve();
+  }
+
+  function action(e) {
+    // 텍스트 기본 높이
+    let textHeigh = 15;
+    let p = getCursorPosition(e);
+    console.log(p);
+
+    // 내용 읽기
+    if (p.x >= readRect.x && p.x <= readRect.x + readRect.w 
+      && p.y >= readRect.y - textHeigh && p.y <= readRect.y + readRect.h - textHeigh
+    ) {
+      console.log("read");
+    } 
+
+    // 약도 보기
+    if (p.x >= mapRect.x && p.x <= mapRect.x + mapRect.w 
+      && p.y >= mapRect.y - textHeigh && p.y <= mapRect.y + mapRect.h - textHeigh
+    ) {
+      console.log("map");
+    } 
+
+    // 참석하기
+    if (p.x >= attendRect.x && p.x <= attendRect.x + attendRect.w 
+      && p.y >= attendRect.y - textHeigh && p.y <= attendRect.y + attendRect.h - textHeigh
+    ) {
+      console.log("attend");
+    } 
+
+    // 도망가기
+    if (p.x >= runRect.x && p.x <= runRect.x + runRect.w 
+      && p.y >= runRect.y - textHeigh && p.y <= runRect.y + runRect.h - textHeigh
+    ) {
+      console.log("run");
+    } 
+  }
+
+  // 클릭 좌표 계산기
+  function getCursorPosition(event) {
+      var rect = canvas.getBoundingClientRect();
+      var x = event.clientX - rect.left;
+      var y = event.clientY - rect.top;
+      return {
+        x: x,
+        y: y
+      };
+  }
+
 
 </script>
 </html>
