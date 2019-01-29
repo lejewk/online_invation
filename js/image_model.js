@@ -1,0 +1,26 @@
+var images = {
+  background: {url: "./img/background.png"},
+  invation: {url: "./img/unit_invation.png"},
+  invationStatus: {url: "./img/unit_invation_status.png"},
+  friendGround: {url: "./img/unit_friend_ground.png"},
+  friend: {url: "./img/unit_friend.png"},
+  friendStatus: {url: "./img/unit_friend_status.png"},
+
+  mb_1: {url: "./img/mb_1.png"},
+  mb_2: {url: "./img/mb_2.png"},
+  mb_3: {url: "./img/mb_3.png"},
+  mb_4: {url: "./img/mb_4.png"},
+  mb_6: {url: "./img/mb_6.png"},
+  mb_7: {url: "./img/mb_7.png"},
+  mb_8: {url: "./img/mb_8.png"},
+  mb_9: {url: "./img/mb_9.png"},
+  
+  cb_1: {url: "./img/cb_1.png"},
+  cb_2: {url: "./img/cb_2.png"},
+  cb_3: {url: "./img/cb_3.png"},
+  cb_4: {url: "./img/cb_4.png"},
+  cb_6: {url: "./img/cb_6.png"},
+  cb_7: {url: "./img/cb_7.png"},
+  cb_8: {url: "./img/cb_8.png"},
+  cb_9: {url: "./img/cb_9.png"},
+};
