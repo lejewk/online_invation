@@ -79,7 +79,7 @@ function messageBox() {
 }
 
 function choiceBox() {
-  let startHeight = 310,
+  let startHeight = 320,
   sideWidth = 14,
   sideHeight = 14;
 
@@ -107,6 +107,8 @@ function choiceBox() {
 
   ctx.drawImage(images.cb_9.img, canvas.width - images.cb_9.img.width, window.innerHeight - sideHeight);
 
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
   ctx.fillStyle = '#f8f8f8';
   ctx.fillRect(
     sideWidth,
@@ -117,39 +119,55 @@ function choiceBox() {
 }
 
 function choiceText() {
-  let startHeight = 350;
+  let edgeWidth = 14;
+  let edgeHeight = 14;
+  let startHeight = 350 + edgeHeight;
+  let endHeight = window.innerHeight - edgeHeight;
+
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
   ctx.shadowColor = "#d0c8d0";
   ctx.font = "bold 20px 맑은고딕";
   ctx.fillStyle = '#484848';
 
+  let textWidth = 80;
+  let textHeight = 20;
+  
+  let centerPosX = window.innerWidth / 2;
+  let firstPosX = (centerPosX + edgeWidth) / 2 - textWidth / 2;
+  let secondPosX = (centerPosX + window.innerWidth - edgeWidth) / 2 - textWidth / 2;
+
+  let centerPosY = (endHeight + startHeight) / 2;
+  let firstPosY = (centerPosY + startHeight) / 2 - textHeight / 2;
+  let secondPosY = (centerPosY + endHeight) / 2;
+
+
   window.readRect = {
-      x: window.innerWidth/2 - 100,
-      y: startHeight,
-      w: 80,
-      h: 20
+      x: firstPosX,
+      y: firstPosY,
+      w: textWidth,
+      h: textHeight
   };
 
   window.mapRect = {
-      x: window.innerWidth/2,
-      y: startHeight,
-      w: 80,
-      h: 20
+      x: secondPosX,
+      y: firstPosY,
+      w: textWidth,
+      h: textHeight
   };
 
   window.attendRect = {
-      x: window.innerWidth/2 - 100,
-      y: startHeight + 40,
-      w: 80,
-      h: 20
+      x: firstPosX,
+      y: secondPosY,
+      w: textWidth,
+      h: textHeight
   };
 
   window.runRect = {
-      x: window.innerWidth/2,
-      y: startHeight + 40,
-      w: 80,
-      h: 20
+      x: secondPosX,
+      y: secondPosY,
+      w: textWidth,
+      h: textHeight
   };
 
   ctx.fillText("내용읽기", readRect.x, readRect.y);

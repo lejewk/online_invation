@@ -9,14 +9,46 @@
   <script type="text/javascript" src="./js/load_images.js"></script>
   <script type="text/javascript" src="./js/draw_images.js"></script>
   <script type="text/javascript" src="./js/entry_battle.js"></script>
+  <script type="text/javascript" src="./js/layer.js"></script>
+  <script type="text/javascript" src="./js/event.js"></script>
 </head>
 
 <body>
-<div id="loadingLayer">
-  <img src="./img/loading_pika.gif" width="100"><br>
-  청첩장을 만나러 가는중입니다.
-</div>
-<canvas id="my_canvas"></canvas>
+  <div id="loadingLayer">
+    <img src="./img/loading_pika.gif" width="100"><br>
+    청첩장을 만나러 가는중입니다.
+  </div>
+  <div id="readLayer">
+      <div id="readContent">
+        <div id="readContentTitleLayer">
+          <img src="img/read_title.png" style="margin-top: 4px;margin-right: 10px;"><img src="img/read_date.png">
+        </div>
+        <table style="width:80%;margin-top:10px;margin-bottom:5px;">
+          <tr>
+            <td><img src="./img/wook.png"></td>
+          </tr>
+          <tr>
+            <td><img src="./img/liang.png"></td>
+          </tr>
+          <tr>
+            <td><img src="./img/time.png"></td>
+          </tr>
+          <tr>
+            <td><img src="./img/location.png"></td>
+          </tr>
+        </table>
+        <div id="readContentEndLayer">
+          <img src="img/text_bob.png" style="margin-top: 4px;">
+        </div>
+        <div>
+          <button onclick="hideRead();">닫기</button>
+        </div>
+      </div>
+  </div>
+  <div id="mapLayer">
+    지도
+  </div>
+  <canvas id="my_canvas"></canvas>
 </body>
 
 <script>
@@ -45,66 +77,6 @@ function init() {
 
   window.ctx = canvas.getContext('2d');
 }
-
-function showLoading() {
-  document.getElementById("loadingLayer").style.display = "";
-}
-
-function hideLoading() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      document.getElementById("loadingLayer").style.display = "none";
-      resolve();
-    }, 2000);
-  });
-}
-
-function action(e) {
-  // 텍스트 기본 높이
-  let textHeigh = 15;
-  let p = getCursorPosition(e);
-  console.log(p);
-
-  // 내용 읽기
-  if (p.x >= readRect.x && p.x <= readRect.x + readRect.w 
-    && p.y >= readRect.y - textHeigh && p.y <= readRect.y + readRect.h - textHeigh
-  ) {
-    console.log("read");
-  } 
-
-  // 약도 보기
-  if (p.x >= mapRect.x && p.x <= mapRect.x + mapRect.w 
-    && p.y >= mapRect.y - textHeigh && p.y <= mapRect.y + mapRect.h - textHeigh
-  ) {
-    console.log("map");
-  } 
-
-  // 참석하기
-  if (p.x >= attendRect.x && p.x <= attendRect.x + attendRect.w 
-    && p.y >= attendRect.y - textHeigh && p.y <= attendRect.y + attendRect.h - textHeigh
-  ) {
-    console.log("attend");
-  } 
-
-  // 도망가기
-  if (p.x >= runRect.x && p.x <= runRect.x + runRect.w 
-    && p.y >= runRect.y - textHeigh && p.y <= runRect.y + runRect.h - textHeigh
-  ) {
-    console.log("run");
-  } 
-}
-
-// 클릭 좌표 계산기
-function getCursorPosition(event) {
-    var rect = canvas.getBoundingClientRect();
-    var x = event.clientX - rect.left;
-    var y = event.clientY - rect.top;
-    return {
-      x: x,
-      y: y
-    };
-}
-
 
 </script>
 </html>

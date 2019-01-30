@@ -16,20 +16,21 @@ function drawEntryBattle() {
       // ctx.save();
       // ctx.restore();  
 
+      let speed = 10;
       
       let d1 = background();
       let d2 = messageBox();
-      let d3 = invation(invationPosX+=2, 90);
-      let d4 = invationStatus(invationStatusPosX+=2, 50);
-      let d5 = friendGround(friendGroundPosX+=2, 250);
-      let d6 = friend(friendPosX+=2, 178);
-      let d7 = friendStatus(friendStatusPosX-=2, 186);
+      let d3 = invation(invationPosX+=speed, 90);
+      let d4 = invationStatus(invationStatusPosX+=speed, 50);
+      let d5 = friendGround(friendGroundPosX+=speed, 250);
+      let d6 = friend(friendPosX+=speed, 178);
+      let d7 = friendStatus(friendStatusPosX-=speed, 186);
 
       if (d1 && d2 && d3 && d4 && d5 && d6 && d7) {
         clearInterval(interval);
         resolve();
       }
-    }, 1000/700);
+    }, 1000/500);
   });
 }
 
@@ -51,7 +52,7 @@ function drawWhatToDo() {
     let seqIndex = 0;
     let textRect = {
       x: 30,
-      y: 285,
+      y: 290,
       w: window.innerWidth - images.mb_1.img.width - images.mb_3.img.width - 100,
       h: 30
     };
@@ -73,7 +74,7 @@ function drawWhatToDo() {
       ctx.shadowColor = "#685870";
       ctx.font = "16px 맑은고딕";
       ctx.fillStyle = 'white';
-      ctx.fillText(messageSeq[seqIndex++], 30, 300);
+      ctx.fillText(messageSeq[seqIndex++], 30, 305);
   
       if (seqIndex === messageSeq.length) {
         clearInterval(textInterval);
