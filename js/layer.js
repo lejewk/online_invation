@@ -17,3 +17,9 @@ function showRead() {
 function hideRead() {
   document.getElementById("readLayer").style.display = "none";
 }
+function showMap() {
+  document.getElementById("mapLayer").style.display = "block";
+}
+function hideMap() {
+  document.getElementById("mapLayer").style.display = "none";
+}

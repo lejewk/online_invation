@@ -17,6 +17,7 @@ function action(e) {
     && p.y >= mapRect.y - textHeigh && p.y <= mapRect.y + mapRect.h - textHeigh
   ) {
     console.log("map");
+    showMap();
   } 
 
   // 참석하기
