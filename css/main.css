@@ -96,6 +96,11 @@ html, body {
 
 #map_top {
   height:40px;
+  border-bottom: 2px solid #004878;
+}
+
+#map_top img {
+  margin-top: 10px;margin-right: 10px;float: right;
 }
 
 #map_center {
@@ -103,6 +108,8 @@ html, body {
   height: 298px;
   display:flex;
   background-color: #f8f8f8;
+  border-top:1px solid #10a8d8;
+  border-bottom:1px solid #007088;
 }
 #map_left {
   width:32px;
@@ -130,5 +137,9 @@ html, body {
 }
 
 #map_foot {
+  height: 100%;
+  border-top: 2px solid #004878;
+  background-image: url("../img/map_guide_bg_pattern.png");
+  background-repeat: repeat;
   padding: 5px 0px 0px 30px;
 }

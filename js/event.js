@@ -25,6 +25,10 @@ function action(e) {
     && p.y >= attendRect.y - textHeigh && p.y <= attendRect.y + attendRect.h - textHeigh
   ) {
     console.log("attend");
+    let name = prompt("이름을 입력하고 \'확인\' 을 눌러주세요!");
+    if (name != null) {
+      save(name);
+    }
   } 
 
   // 도망가기
@@ -44,4 +48,11 @@ function getCursorPosition(event) {
       x: x,
       y: y
     };
+}
+
+function save(name) {
+  firebase.database().ref('/visitor/hZwEdHg8wVRMmIiahHB5').set({
+    name: name,
+    dateCreated: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+  });
 }

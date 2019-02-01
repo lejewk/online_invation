@@ -11,6 +11,7 @@
   <script type="text/javascript" src="./js/entry_battle.js"></script>
   <script type="text/javascript" src="./js/layer.js"></script>
   <script type="text/javascript" src="./js/event.js"></script>
+  <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
 </head>
 
 <body>
@@ -47,7 +48,7 @@
       </div>
   </div>
   <div id="mapLayer">
-    <div id="map_top"><img src="img/close.png" onclick="hideMap();" style="margin: 10px;float: right;"></div>
+    <div id="map_top"><img src="img/close.png" onclick="hideMap();"></div>
     <div id="map_center">
       <div id="map_left"><img src="img/map_left.png"></div>
       <div id="map_content">
@@ -56,7 +57,6 @@
       <div id="map_right"><img src="img/map_right.png"></div>
     </div>
     <div id="map_foot">
-      <img src="img/map_location.png"> <br>
       <img src="img/map_address.png"> <br>
       <img src="img/map_contact.png"> <br>
     </div>
@@ -103,5 +103,18 @@ function initMap() {
     zoom: 17
   });
 }
+</script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBxfROjeAF6MWBkoFz9gi5K6UZBR7CSDBA",
+    authDomain: "onlineinvitation-1548946088735.firebaseapp.com",
+    databaseURL: "https://onlineinvitation-1548946088735.firebaseio.com",
+    projectId: "onlineinvitation-1548946088735",
+    storageBucket: "onlineinvitation-1548946088735.appspot.com",
+    messagingSenderId: "368317816197"
+  };
+  firebase.initializeApp(config);
 </script>
 </html>
