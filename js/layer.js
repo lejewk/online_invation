@@ -1,16 +1,12 @@
-function showLoading() {
+function showLoading(message) {
   document.getElementById("loadingLayer").style.display = "";
+  if (message) {
+    document.getElementById("loadMessage").innerText = message;
+  }
 }
-
 function hideLoading() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      document.getElementById("loadingLayer").style.display = "none";
-      resolve();
-    }, 2000);
-  });
+  document.getElementById("loadingLayer").style.display = "none";
 }
-
 function showRead() {
   document.getElementById("readLayer").style.display = "block";
 }

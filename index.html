@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <title>♥청첩장♥</title>
   <link href='./css/main.css' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="./js/util.js"></script>
   <script type="text/javascript" src="./js/image_model.js"></script>
   <script type="text/javascript" src="./js/load_images.js"></script>
   <script type="text/javascript" src="./js/draw_images.js"></script>
+  <script type="text/javascript" src="./js/draw_texts.js"></script>
   <script type="text/javascript" src="./js/entry_battle.js"></script>
   <script type="text/javascript" src="./js/layer.js"></script>
   <script type="text/javascript" src="./js/event.js"></script>
@@ -17,7 +19,7 @@
 <body>
   <div id="loadingLayer">
     <img src="./img/loading_pika.gif" width="100"><br>
-    청첩장을 만나러 가는중입니다.
+    <p id="loadMessage">청첩장을 만나러 가는중입니다.</p>
   </div>
   <div id="readLayer">
       <div id="readContent">
@@ -69,6 +71,9 @@ window.onload = function() {
   init();
 
   loadImages()
+  .then(() => {
+    return timeout(3000);
+  })
   .then(hideLoading)
   .then(drawEntryBattle)
   .then(drawWhatToDo)

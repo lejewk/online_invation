@@ -27,7 +27,10 @@ function action(e) {
     console.log("attend");
     let name = prompt("이름을 입력하고 \'확인\' 을 눌러주세요!");
     if (name != null) {
-      save(name);
+      let count = prompt("참석 인원수를 입력하고 \'확인\' 을 눌러주세요.", "1");
+      if (count != null) {
+        save(name, count);
+      }
     }
   } 
 
@@ -36,6 +39,16 @@ function action(e) {
     && p.y >= runRect.y - textHeigh && p.y <= runRect.y + runRect.h - textHeigh
   ) {
     console.log("run");
+    
+    messageBox();
+    
+    runAway()
+      .then(timeout(3000))
+      .then(drawWhatToDo)
+      .then(() => {
+        choiceBox();
+        choiceText();
+      });
   } 
 }
 
@@ -50,9 +63,26 @@ function getCursorPosition(event) {
     };
 }
 
-function save(name) {
-  firebase.database().ref('/visitor/hZwEdHg8wVRMmIiahHB5').set({
+function save(name, count) {
+  showLoading("신랑 신부에게 이 사실을 알리고있어요!!");
+  var visitorRef = firebase.database().ref('/visitor');
+  visitorRef.push().set({
     name: name,
+    count: count,
     dateCreated: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+  }, function(error) {
+    timeout(2000)
+    .then(() => {
+      hideLoading();
+
+        // 참석 감사 메시지
+        messageBox();
+        return drawThanks();
+      })
+    .then(drawWhatToDo)
+    .then(() => {
+      choiceBox();
+      choiceText();
+    });
   });
 }
