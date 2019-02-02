@@ -1,4 +1,10 @@
+var isDoing = false;
 function action(e) {
+  // 실행체크
+  if (isDoing) {
+    return;
+  }
+
   // 텍스트 기본 높이
   let textHeigh = 15;
   let p = getCursorPosition(e);
@@ -40,6 +46,7 @@ function action(e) {
   ) {
     console.log("run");
     
+    isDoing = true;
     messageBox();
     
     runAway()
@@ -48,6 +55,7 @@ function action(e) {
       .then(() => {
         choiceBox();
         choiceText();
+        isDoing = false;
       });
   } 
 }
@@ -55,15 +63,14 @@ function action(e) {
 // 클릭 좌표 계산기
 function getCursorPosition(event) {
     var rect = canvas.getBoundingClientRect();
-    var x = event.clientX - rect.left;
-    var y = event.clientY - rect.top;
     return {
-      x: x,
-      y: y
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
     };
 }
 
 function save(name, count) {
+  isDoing = true;
   showLoading("신랑 신부에게 이 사실을 알리고있어요!!");
   var visitorRef = firebase.database().ref('/visitor');
   visitorRef.push().set({
@@ -83,6 +90,7 @@ function save(name, count) {
     .then(() => {
       choiceBox();
       choiceText();
+      isDoing = false;
     });
   });
 }

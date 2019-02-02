@@ -1,7 +1,5 @@
-function timeout(time) {
+function timeout(time, v) {
   return new Promise((resolev) => {
-    setTimeout(() => {
-      resolev();
-    }, time);
+    setTimeout(resolev.bind(null, v), time);
   });
 }
